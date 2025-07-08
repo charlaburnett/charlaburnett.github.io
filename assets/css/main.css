@@ -81,6 +81,13 @@ input, select, textarea {
 	color: white;
 }
 
+/* Remove dark overlay for video banner */
+#banner.video-banner:after {
+	background: none !important;
+	opacity: 0 !important;
+}
+
+
 #banner.video-banner .video-background {
 	position: absolute;
 	top: 0;

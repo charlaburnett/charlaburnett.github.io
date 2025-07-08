@@ -92,8 +92,21 @@ input, select, textarea {
 
 #banner.video-banner .inner {
 	position: relative;
+	z-index: 2; /* Make sure text is ABOVE the video */
+	color: white; /* optional: ensures the text is visible */
+}
+
+#banner.video-banner::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.4); /* optional: dark overlay for better contrast */
 	z-index: 1;
 }
+
 
 /* Basic */
 

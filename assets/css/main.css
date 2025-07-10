@@ -419,7 +419,7 @@ input, select, textarea {
 		}
 
 		.row > .off-4 {
-			margin-left: 33.33333%;
+			margin-left: 33.33333%;					
 		}
 
 		.row > .col-5 {
@@ -2885,7 +2885,7 @@ input, select, textarea {
 			}
 
 			.tiles article:nth-child(6n - 4):before {
-				background-color: #8d82c4;
+				background-color: #EEEFE0;
 			}
 
 			.tiles article:nth-child(6n - 3):before {

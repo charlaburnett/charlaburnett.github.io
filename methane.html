@@ -51,24 +51,42 @@
 									<h1>Methane Plume Capture and Reuse Scoring</h1>
 								</header>
 
-								<p>Finding a methane leak from orbit is the easy half. The harder question is whether anything near the leak could actually burn the gas if it were captured &mdash; because a plume with no demand within reach is an emissions problem, while a plume next to a load that wants energy is a supply opportunity. This project scores plumes on that second question.</p>
+								<p>Finding a methane leak from orbit is the easy half. The harder question is whether anything near the leak could burn the gas if it were captured &mdash; because a plume with no demand within reach is purely an emissions problem, while a plume beside a load that wants energy is a supply opportunity. This project scores plumes on that second question.</p>
 
-								<h2>Approach</h2>
-								<p>The analysis runs over the Appalachian Basin &mdash; eastern Ohio, western Pennsylvania and northern West Virginia &mdash; and joins satellite-detected methane plumes to the energy infrastructure sitting around them.</p>
+								<h2>The gap</h2>
+								<p>Satellite methane monitoring is mature, and GIS work built on it is almost entirely <em>retrospective</em>: mapping hotspots, attributing them to operators, and supporting leak detection and repair. That serves regulators well. It is close to useless to anyone deciding where capture infrastructure would pay for itself. This work runs the analysis forward instead &mdash; treating plume detections as a siting problem rather than a compliance one.</p>
+
+								<h2>Study area</h2>
+								<p>A 200&nbsp;km&sup2; subregion of the Appalachian-Marcellus basin, spanning parts of Pennsylvania, Ohio and West Virginia. The region carries thousands of well pads, processing stations and transmission pipelines, so both intentional venting and fugitive leaks are dense; its mix of industrial zones and rural-to-semi-urban commercial development means demand varies sharply over short distances, which is what makes proximity worth modelling at all.</p>
+
+								<h2>Method</h2>
 								<ul>
-									<li><strong>Plume detections.</strong> MethaneSAT L4 point data from the Environmental Defense Fund public preview, filtered to the study area, carrying a flux estimate and its standard deviation for each plume.</li>
-									<li><strong>Demand surface.</strong> Infrastructure polygons classified as industrial, commercial, data centre or other, each assigned an energy-density estimate scaled by footprint area &mdash; data centres weighted highest, at roughly four times a generic parcel.</li>
-									<li><strong>Proximity join.</strong> Each plume is buffered to ten kilometres and spatially joined to every infrastructure polygon within that radius.</li>
-									<li><strong>Distance weighting.</strong> Matched demand is combined by inverse distance and weighted by land use, so a data centre two kilometres away counts for far more than a commercial parcel at the edge of the buffer.</li>
-									<li><strong>Feasibility ratio.</strong> The energy recoverable from the plume itself is divided by that weighted demand and capped at one, which distinguishes a leak that could meaningfully serve nearby load from one that is negligible against it.</li>
-									<li><strong>Scoring.</strong> Flux, measurement uncertainty, the feasibility ratio and avoided CO<sub>2</sub>-equivalent emissions combine into a single capture score, binned into high, moderate and low potential tiers.</li>
+									<li><strong>Plume detections.</strong> MethaneSAT L4 point data from the Environmental Defense Fund public preview, filtered to a single satellite overpass, keeping leaks above 500&nbsp;kg/h with low retrieval uncertainty. Each carries a flux estimate and its standard deviation.</li>
+									<li><strong>Demand surface.</strong> Infrastructure polygons from OpenStreetMap, classified as industrial, commercial, data centre or other, each given an energy density scaled by footprint area &mdash; data centres weighted highest, at roughly four times a generic parcel.</li>
+									<li><strong>Proximity join.</strong> Each plume is buffered to ten kilometres and spatially joined to every infrastructure feature inside that radius.</li>
+									<li><strong>Distance weighting.</strong> Matched demand is combined by inverse distance and weighted by land use, so a data centre two kilometres away counts for far more than a commercial parcel at the buffer&rsquo;s edge. The economics of moving captured gas fall off sharply with distance, and the weighting is what encodes that.</li>
+									<li><strong>Feasibility ratio.</strong> Energy recoverable from the plume divided by that weighted demand, capped at 1.0.</li>
+									<li><strong>Composite score.</strong> Flux, measurement uncertainty, the feasibility ratio and avoided CO<sub>2</sub>-equivalent emissions combine into one capture score, binned into high, moderate and low potential tiers.</li>
 								</ul>
 
-								<h2>Why it is framed this way</h2>
-								<p>Most methane remote sensing stops at detection and quantification, which serves regulators and reporting frameworks well. It is less useful to anyone deciding where capture infrastructure would pay for itself. Ranking plumes by the demand within reach of them turns a monitoring product into a siting one, and the distance weighting matters because the economics of moving captured gas fall off sharply with pipeline distance.</p>
+								<h2>Why data centres are weighted highest</h2>
+								<p>Not an arbitrary constant. Data centre power demand is projected to grow by roughly 160% by 2030, against the 1&ndash;2% of global electricity the sector consumes today &mdash; growth driven largely by AI workloads. A methane plume next to that kind of load is a materially different proposition from one next to a warehouse, and the weighting says so explicitly rather than burying it.</p>
 
-								<h2>Status</h2>
-								<p>Written as a Google Earth Engine script. The energy-density and land-use weights are first-pass estimates intended to rank plumes against each other rather than to produce absolute energy figures, and the scoring would need calibration against real capture project costs before it carried decision weight.</p>
+								<h2>The design decision worth arguing about</h2>
+								<p>The whole analysis stays inside Google Earth Engine, which constrains how much data it can process &mdash; and is why the study area is 200&nbsp;km&sup2; rather than a basin or a continent. Rebuilt in ArcGIS or QGIS the same method would run globally.</p>
+								<p>That limit was accepted deliberately. The point was a method anyone could re-run for free, with modest GIS skills and no licensed software, on a public dataset. A global result nobody else can reproduce is worth less than a small one that any regional planner can run over their own patch tomorrow. Scope was the thing traded away; replicability was the thing bought.</p>
+
+								<h2>What it does not do</h2>
+								<ul>
+									<li>Energy demand is inferred from OSM land use, which flattens real variation and ignores temporal swings and off-grid supply.</li>
+									<li>Capping the feasibility ratio at 1.0 stops low-demand areas skewing the ranking, but it also hides places where surplus gas could be stored or exported.</li>
+									<li>Avoided emissions assume full capture and complete combustion at a 25&times; global warming potential. Real capture efficiency varies.</li>
+									<li>Nothing here models permitting, site access, retrofit cost or jurisdiction &mdash; all of which can decide feasibility on their own.</li>
+								</ul>
+								<p>It is a first-pass filter for ranking plumes against each other, to be followed by cost-benefit analysis and site verification. Satellite flux figures and OSM footprints both need confirming on the ground.</p>
+
+								<h2>Published as</h2>
+								<p>The case study in &ldquo;Energy Optimization and Innovation in GIS and Remote Sensing,&rdquo; my sole-authored chapter in <em>Global Land-Ocean Geospatial Applications: Mapping and Surveying with Remote Sensing and GIS</em> (CRC Press / Taylor &amp; Francis, 2025), pp. 188&ndash;215. More on the <a href="books.html">books</a> page.</p>
 
 								<ul class="actions">
 									<li><a href="index.html" class="button next">Back to projects</a></li>
@@ -78,7 +96,7 @@
 
 						</div>
 
-								<!-- Footer -->
+												<!-- Footer -->
 					<footer id="footer">
 						<div class="inner">
 							<ul class="icons">

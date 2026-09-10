@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<!--
+	GEOINT by Charla M. Burnett
+	charlaburnett.github.io
+	Template: Forty by HTML5 UP, CCA 3.0 license (html5up.net/license)
+-->
+<html lang="en">
+	<head>
+		<title>Gisborne Reforestation Change Detection &mdash; Charla M. Burnett</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="description" content="SAR backscatter change detection over the Gisborne District, New Zealand — mapping likely reforestation and likely clearing between 2020 and 2023 in Google Earth Engine." />
+		<link rel="canonical" href="https://charlaburnett.github.io/gisborne.html" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<a href="index.html" class="logo"><strong>GEOINT</strong> <span>by Charla M. Burnett</span></a>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<ul class="links">
+							<li><a href="index.html">Home</a></li>
+							<li><a href="bio.html">About</a></li>
+							<li><a href="participatory.html">Participatory Mapping</a></li>
+							<li><a href="publications.html">Publications</a></li>
+							<li><a href="books.html">Books</a></li>
+						</ul>
+						<ul class="actions stacked">
+							<li><a href="https://github.com/charlaburnett" class="button primary fit">GitHub</a></li>
+							<li><a href="https://www.linkedin.com/in/charlaburnett" class="button fit">LinkedIn</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main" class="alt">
+
+						<section id="one">
+							<div class="inner">
+								<header class="major">
+									<h1>Gisborne Reforestation Change Detection</h1>
+								</header>
+
+								<p>Radar sees through cloud, which is most of what sits over the East Cape of New Zealand&rsquo;s North Island. This project uses SAR backscatter to track how forest cover across the Gisborne District changed between 2020 and 2023, separating land that gained woody structure from land that lost it.</p>
+
+								<span class="image fit"><img src="images/newzealand-reforestation.png" alt="SAR change detection map of the Gisborne District, New Zealand, showing likely reforestation in green and likely clearing in red over an OpenStreetMap basemap" /></span>
+
+								<h2>Method</h2>
+								<ul>
+									<li><strong>Two SAR epochs.</strong> Backscatter composites for 2020 and 2023 over the Gisborne District, assembled in Google Earth Engine.</li>
+									<li><strong>Differencing.</strong> The two epochs are differenced into a backscatter change layer &mdash; rising backscatter indicating a gain in woody structure, falling backscatter indicating removal.</li>
+									<li><strong>Classification.</strong> That change layer is thresholded into two classes, <em>likely reforestation</em> and <em>likely clearing</em>, shown above in green and red.</li>
+									<li><strong>Delivery.</strong> Published as an interactive map with before, after, raw change and classified layers each independently toggleable over an OpenStreetMap basemap, so any two can be compared directly.</li>
+								</ul>
+
+								<h2>Why radar</h2>
+								<p>Optical change detection is difficult on this coast because persistent cloud leaves the usable optical record thin and irregularly spaced. SAR is unaffected by cloud and acquires on a consistent repeat cycle, which makes a clean two-epoch comparison possible where an optical time series would have gaps in exactly the seasons that matter.</p>
+
+								<h2>Status</h2>
+								<p>The map above is a capture of the working version. The live map is served from Earth Engine tile endpoints whose access tokens have since expired, so it is being rebuilt against durable exported layers before it goes up here.</p>
+
+								<ul class="actions">
+									<li><a href="index.html" class="button next">Back to projects</a></li>
+								</ul>
+							</div>
+						</section>
+
+						</div>
+
+								<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<ul class="icons">
+								<li><a href="https://github.com/charlaburnett" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+								<li><a href="https://www.linkedin.com/in/charlaburnett" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+								<li><a href="https://orcid.org/0000-0002-5234-5532" class="icon solid fa-id-card"><span class="label">ORCID</span></a></li>
+								<li><a href="https://scholar.google.com/citations?user=6HerUhwAAAAJ" class="icon solid fa-graduation-cap"><span class="label">Google Scholar</span></a></li>
+							</ul>
+							<ul class="copyright">
+								<li>&copy; Charla M. Burnett</li><li>Template: <a href="https://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

@@ -1,0 +1,9 @@
+# Local geospatial working data — far too large for a GitHub Pages repo.
+# GitHub rejects any file over 100 MB and Pages sites are capped at 1 GB.
+dc-urban-heat/
+change-detection/
+
+.DS_Store
+.ipynb_checkpoints/
+urban-heat-analysis/
+.venv/
